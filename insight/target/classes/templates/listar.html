@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout-padrao">
+<head>
+<meta charset="UTF-8" />
+
+<!-- Bootstrap Core CSS -->
+<link type="text/css" href="/css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- Bootstrap Tags CSS -->
+<link type="text/css" href="/css/bootstrap-tagsinput.css" rel="stylesheet" />
+
+<!-- jQuery -->
+<script src="/js/jquery-3.2.1.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+</head>
+
+<section layout:fragment="conteudo">
+
+		<input type="hidden" id="todos" th:value="*{portifolios}" />
+		<input type="hidden" id="todas-tags" th:value="${todasTags}" />
+		<input type="hidden" id="token-js" th:value="${token}" />
+		<input type="hidden" id="user-id-js" th:value="${userId}" />
+		<input type="hidden" id="idExcluir" />
+		
+
+		<div class="panel panel-default">
+
+			<div class="panel-heading">
+				<div class="clearfix">
+					<form method="get" action="/portifolio/listar">
+					
+						<h1 class="panel-title aw-titulo-panel">Pesquisar tags &#160; </h1>
+						
+						<input id="tags-input" type="text" value="" data-role="tagsinput"  />
+						
+						<button id="btn-pesquisar" type="submit" class="btn btn-success">Pesquisar</button>
+						
+						<a class="btn btn-link aw-link-panel" href="/portifolio/cadastrar">Inserir novo</a>
+					
+					</form>
+				</div>
+			</div>
+
+			<div class="panel-body">
+				<table id="tabela" class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th class="text-center col-md-1">#</th>
+							<th class="text-center col-md-2">Projeto</th>
+							<th class="text-center col-md-2">Cliente</th>
+							<th class="text-center col-md-2">Status</th>
+							<th class="text-center col-md-2">Tags</th>
+							<th class="text-center col-md-1">Ação</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="portifolio : ${portifolios}">
+							<input class="desc-js" th:attr="data-id=${portifolio.id}" type="hidden" th:value="${portifolio.descricao}" />
+							<td class="text-center" th:text="${portifolio.id}" th:onclick="'javascript:detalhe(\'' + ${portifolio.id} + '\');'" title="Detalhes"  data-placement="top" style="cursor:pointer;color:blue;">#</td>
+							<td class="text-center" th:text="${portifolio.nome}" ></td>
+							<td class="text-center" th:text="${portifolio.cliente.nome}"></td>
+							<td class="text-center"><span class="label"
+								th:text="${portifolio.status.descricao}"
+								th:classappend="${portifolio.status.descricao == 'Desenvolvimento' ? 'label-danger' : 'label-success'}"></span>
+							</td>
+							<td class="text-center span1" >
+								<span th:each="tag : ${portifolio.lista}" class="label">
+									<span th:text="${tag.descricao}" style="color:blue"></span>
+								</span>
+							</td>
+							<td class="text-center">
+								<!-- Ícones --> <!-- O @ serve para montar links: o que está entre chaves: variável -->
+								<!-- O @ serve para montar links: o que está entre parênteses: valor -->
+								<a class="btn btn-link btn-xs" th:href="@{/portifolio/editar/{id}(id=${portifolio.id})}" title="Editar"
+									rel="tooltip" data-placement="top"> 
+									<span class="glyphicon glyphicon-pencil"></span>
+								</a> 
+								<a class="btn btn-link btn-xs" th:onclick="'javascript:setId(\'' + ${portifolio.id} + '\');'" title="Excluir" rel="tooltip" data-placement="top"> 
+								<span class="glyphicon glyphicon-remove"></span>
+								</a>
+								<a class="btn btn-link btn-xs" th:onclick="'javascript:baixar(\'' + ${portifolio.id} + '\');'" title="Download" rel="tooltip" data-placement="top"> 
+								<span class="glyphicon glyphicon-download"></span>
+								</a>
+							</td>
+						</tr>
+						<tr th:if="${#lists.isEmpty(portifolios)}">
+							<td colspan="6">Nenhum
+								portfólio encontrado</td>
+						</tr>
+					</tbody>
+				</table>
+				<a id="baixar-tudo" href="">Baixar tudo</a>
+				<a class="btn btn-link aw-link-panel" href="/portifolio/todos">Todos</a>
+			</div>
+			
+			<!-- Modal exclusão -->
+			<div id="exclusaoModal" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+				
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        <h4 class="modal-title">Atenção!</h4>
+				      </div>
+				      <div class="modal-body">
+				        <p>Tem certeza que deseja excluir este portifólio?</p>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+				        <button id="confirmar-exclusao" type="button" class="btn btn-success" data-dismiss="modal">Sim</button>
+				      </div>
+				    </div>
+			  </div>
+			</div>
+			
+			<!-- Modal detalhe -->
+			<div class="modal fade" id="detalhe" tabindex="-1" role="dialog">
+			  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        <h3 class="modal-title">Detalhes</h3>
+				      </div>
+				      
+				      <div class="modal-body">
+				        <form>
+				          <div class="form-group">
+				            <label for="message-text" class="col-form-label">Descrição:</label>
+				            <textarea readonly="readonly" class="form-control" id="descricao" rows="10"></textarea>
+				          </div>
+				        </form>
+				      </div>
+				      
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				      </div>
+				    </div>
+			    </div>
+			  </div>
+
+		</div>
+
+
+	<!-- Custom JS -->
+	<script src="/js/custom/listar.js"></script>
+	
+	<!-- Bootstrap Tags JS -->
+	<script src="/js/bootstrap-tagsinput.min.js"></script>
+
+</section>
+
+</html>

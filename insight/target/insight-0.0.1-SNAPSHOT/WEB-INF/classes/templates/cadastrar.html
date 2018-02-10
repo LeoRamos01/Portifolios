@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout-padrao">
+<head>
+<meta charset="UTF-8" />
+
+<!-- Bootstrap Core CSS -->
+<link type="text/css" href="/css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- Bootstrap Tags CSS -->
+<link type="text/css" href="/css/bootstrap-tagsinput.css" rel="stylesheet" />
+
+<!-- jQuery -->
+<script src="/js/jquery-3.2.1.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+</head>
+	
+	<section layout:fragment="conteudo">
+	
+	<input type="hidden" id="token-js" th:value="${token}" />
+	<input type="hidden" id="user-id-js" th:value="${userId}" />
+	
+	<form id="form-cadastrar" class="form-horizontal" method="POST" action="salvar" th:object="${portifolio}" enctype="multipart/form-data">
+
+	<!-- MENSAGEM DE SUCESSO -->
+	<div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}">
+		<span th:text="${mensagem}"></span>
+	</div>
+	
+	<!-- MENSAGEM DE ERROS -->
+	<div class="alert alert-danger" th:each="detailedError : ${#fields.detailedErrors()}">
+		<span class="glyphicon glyphicon-exclamation-sign" th:text="' ' + ${detailedError.message}"></span>
+	</div>
+
+	<div class="panel panel-default">
+	
+		<div class="panel-heading">
+			<div class="clearfix">
+				<h1 class="panel-title aw-titulo-panel">Inserir portifólio</h1>
+				<a class="btn btn-link aw-link-panel" href="/portifolio/todos">Voltar para pesquisa</a>
+			</div>
+		</div>
+		
+		<div class="panel-body">
+		
+			<input type="hidden" id="nomeProjeto" th:field="*{id}" />
+			<input type="hidden" id="todas-tags" th:value="${todasTags}" />
+		
+			<div class="form-group">
+				<label for="projeto" class="col-sm-2 control-label">Nome do projeto</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="nomeProjeto" th:field="*{nome}" />
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="tags" class="col-sm-2 control-label">Tags</label>
+				<div class="col-sm-4">
+					<input id="tags-input" type="text" value="" data-role="tagsinput"  />
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="cliente" class="col-sm-2 control-label">Nome do cliente</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="nomeCliente" th:field="*{cliente.nome}"/>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="descricao" class="col-sm-2 control-label">Descrição</label>
+				<div class="col-sm-4">
+					<textarea class="form-control" id="descricao" rows="6" th:field="*{descricao}"></textarea>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="status" class="col-sm-2 control-label">Status</label>
+				<div class="col-sm-2">
+					<select class="form-control" name="status" th:field="*{status}">
+						<option th:each="status : ${todosStatus}" th:value="${status}" th:text="${status.descricao}"></option>
+                   	</select>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<div class="col-sm-4">
+				    <label class="custom-file">
+						  <input type="file" id="file" value="*{arquivo}" class="custom-file-input" />
+						  <span class="custom-file-control"></span>
+					</label>
+				</div>
+			</div>
+			
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button id="btn-salvar" type="submit" class="btn btn-success">Salvar</button>
+			</div>
+		</div>
+		
+		</div>
+		
+	</div>
+		
+	</form>
+	
+	<!-- Custom JS -->
+	<script src="/js/custom/cadastrar.js"></script>
+	
+	<!-- Bootstrap Tags JS -->
+	<script src="/js/bootstrap-tagsinput.min.js"></script>
+	
+	</section>
+
+</html>

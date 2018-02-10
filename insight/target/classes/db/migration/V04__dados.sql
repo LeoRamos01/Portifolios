@@ -1,0 +1,45 @@
+INSERT INTO cliente (id, nome) VALUES (1, 'Verity TI');
+INSERT INTO cliente (id, nome) VALUES (2, 'Verity TI');
+INSERT INTO cliente (id, nome) VALUES (3, 'José da Silva');
+INSERT INTO cliente (id, nome) VALUES (4, 'Exemplo');
+INSERT INTO cliente (id, nome) VALUES (5, 'Verity TI');
+
+INSERT INTO portifolio (id, idCliente, nome, descricao, arquivo, status) VALUES (1, 5, 'ERP Prosperity', 'Sistema web criado para o gerenciamento de contratação de novos funcionários e gestão dos já existentes.\r\n\r\nPara a criação do sistema foi utilizado java, spring mvc, bootstrap, spring security, jquery, hibernate, dentre outras tecnologias.', 'C:\\Users\\ramos\\Documents\\Projetos Github\\duxus-desafio-fork-leonardo-prog\\insight\\src\\main\\webapp\\uploads\\ERP Prosperity', 'CONCLUIDO');
+INSERT INTO portifolio (id, idCliente, nome, descricao, arquivo, status) VALUES (2, 3, 'Padaria Pães e Doces Ecommerce', 'Ecommerce para a venda e compra de produtos sob encomenda.', 'C:\\Users\\ramos\\Documents\\Projetos Github\\duxus-desafio-fork-leonardo-prog\\insight\\src\\main\\webapp\\uploads\\Padaria Pães e Doces Ecommerce', 'CONCLUIDO');
+INSERT INTO portifolio (id, idCliente, nome, descricao, arquivo, status) VALUES (3, 4, 'Exemplo', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'C:\\Users\\ramos\\Documents\\Projetos Github\\duxus-desafio-fork-leonardo-prog\\insight\\src\\main\\webapp\\uploads\\Exemplo', 'CONCLUIDO');
+
+INSERT INTO tag (id, descricao) VALUES (1, 'spring mvc');
+INSERT INTO tag (id, descricao) VALUES (2, 'spring security');
+INSERT INTO tag (id, descricao) VALUES (3, 'bootstrap');
+INSERT INTO tag (id, descricao) VALUES (4, 'jquery');
+INSERT INTO tag (id, descricao) VALUES (5, 'hibernate');
+INSERT INTO tag (id, descricao) VALUES (6, 'java');
+INSERT INTO tag (id, descricao) VALUES (7, 'spring mvc');
+INSERT INTO tag (id, descricao) VALUES (8, 'spring security');
+INSERT INTO tag (id, descricao) VALUES (9, 'bootstrap');
+INSERT INTO tag (id, descricao) VALUES (10, 'hibernate');
+INSERT INTO tag (id, descricao) VALUES (11, 'jquery');
+INSERT INTO tag (id, descricao) VALUES (12, 'java');
+INSERT INTO tag (id, descricao) VALUES (13, 'html5');
+INSERT INTO tag (id, descricao) VALUES (14, 'angular');
+INSERT INTO tag (id, descricao) VALUES (15, 'ecommerce');
+INSERT INTO tag (id, descricao) VALUES (16, 'javascript');
+INSERT INTO tag (id, descricao) VALUES (17, 'java');
+INSERT INTO tag (id, descricao) VALUES (18, 'spring mvc');
+INSERT INTO tag (id, descricao) VALUES (19, 'spring security');
+INSERT INTO tag (id, descricao) VALUES (20, 'bootstrap');
+INSERT INTO tag (id, descricao) VALUES (21, 'jquery');
+INSERT INTO tag (id, descricao) VALUES (22, 'hibernate');
+INSERT INTO tag (id, descricao) VALUES (23, 'java');
+
+INSERT INTO tagPortifolio (id, idTag, idPortifolio) VALUES (1, 13, 2);
+INSERT INTO tagPortifolio (id, idTag, idPortifolio) VALUES (2, 14, 2);
+INSERT INTO tagPortifolio (id, idTag, idPortifolio) VALUES (3, 15, 2);
+INSERT INTO tagPortifolio (id, idTag, idPortifolio) VALUES (4, 16, 3);
+INSERT INTO tagPortifolio (id, idTag, idPortifolio) VALUES (5, 17, 3);
+INSERT INTO tagPortifolio (id, idTag, idPortifolio) VALUES (6, 21, 1);
+INSERT INTO tagPortifolio (id, idTag, idPortifolio) VALUES (7, 22, 1);
+INSERT INTO tagPortifolio (id, idTag, idPortifolio) VALUES (8, 20, 1);
+INSERT INTO tagPortifolio (id, idTag, idPortifolio) VALUES (9, 18, 1);
+INSERT INTO tagPortifolio (id, idTag, idPortifolio) VALUES (10, 23, 1);
+INSERT INTO tagPortifolio (id, idTag, idPortifolio) VALUES (11, 19, 1);

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<title>Insight</title>
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" href="/css/login.css" />
+</head>
+
+<body>
+
+    <div class="container">
+    <h1 class="welcome text-center">Bem vindo<br/><img alt="Logo" src="/images/logo-insight.png" height="50px" width="75px"/></h1>
+        <div class="card card-container">
+        <h2 class='login_title text-center'>Login</h2>
+        
+            <form class="form-signin" method="POST" action="/login/efetuar" th:object="${usuario}">
+                <p class="input_title">Nome</p>
+                <input type="text" id="inputEmail" class="login_box" required="required" autofocus="autofocus" th:field="${usuario.nome}"/>
+                <p class="input_title">Senha</p>
+                <input type="password" id="inputPassword" class="login_box" placeholder="******" required="required" th:field="${usuario.senha}"/>
+                <input type="hidden" id="role" th:value="${usuario.role}" />
+                <input type="hidden" id="role" th:value="${usuario.id}" />
+                
+                <button class="btn btn-lg btn-primary" type="submit">Login</button>
+            </form>
+            
+        </div>
+    </div>
+</body>
+</html>
