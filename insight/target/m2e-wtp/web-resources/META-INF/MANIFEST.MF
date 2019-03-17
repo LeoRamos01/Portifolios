@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
+Built-By: leonardorm
+Build-Jdk: 10.0.2
 Implementation-Title: insight
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: ramos
 Implementation-Vendor-Id: br.com.duxus
-Build-Jdk: 1.8.0_144
+Implementation-Vendor: Pivotal Software, Inc.
 Implementation-URL: http://projects.spring.io/spring-boot/insight/
 Created-By: Maven Integration for Eclipse
-Implementation-Vendor: Pivotal Software, Inc.
 
